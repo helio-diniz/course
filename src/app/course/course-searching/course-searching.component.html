@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="ui-g">
+    <form ngForm autocomplete="off" (ngSubmit)="findPage()">
+      <div class="ui-g-12">
+        <h1>Pequisa de Cursos</h1>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label for="description">Descrição</label>
+        <input pInputText [(ngModel)]="filter.description" type="text" name="description" id="description">
+      </div>
+
+      <div class="ui-g-12">
+        <button pButton type="submit" label="Pesquisar"></button>
+      </div>
+    </form>
+  </div>
+
+  <div class="ui-g" style="margin-top: 15px;">
+    <div class="ui-g-12">
+      <p-table [value]="courses" [responsive]="true" [paginator]="true" [rows]="5" [lazy]="true"
+        [totalRecords]="totalRecords" (onLazyLoad)="onChangePage($event)" #tabela>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Descrição</th>
+            <th>Data de Início</th>
+            <th>Data de Término</th>
+            <th>Alunos</th>
+            <th>Categoria</th>
+            <th class="col-actions-header"></th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-course>
+          <tr>
+            <td>{{ course.description }}</td>
+            <td>{{ course.startDate }}</td>
+            <td>{{ course.finishDate }}</td>
+            <td>{{ course.amountOfStudents }}</td>
+            <td>{{ course.category.description }}</td>
+            <td class="col-actions">
+              <a pButton icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top"
+                [routerLink]="['/cursos', course.id]"></a>
+              <button pButton icon="fa fa-trash" pTooltip="Excluir" tooltipPosition="top"
+                (click)="confirmRemoval(course)"></button>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6">
+              Nenhum curso cadastrado.
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div class="ui-g-12">
+      <a pButton label="Novo Curso" routerLink="/cursos/novo"></a>
+    </div>
+  </div>
+</div>

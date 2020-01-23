@@ -1,0 +1,44 @@
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #404C51;
+}
+
+label, span {
+  font-weight: bold;
+}
+
+a, button {
+  margin-right: .25em;
+}
+
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+    margin: 0 auto;
+  }
+}
+
+.col-actions-header {
+  width: 100px;
+}
+
+.col-actions {
+  width: 95px;
+  text-align: center;
+}
+
+.col-date-header {
+  width: 100px;
+}
+
+.col-date {
+  width: 95px;
+}
