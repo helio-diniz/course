@@ -1,3 +1,4 @@
 # course-ui
-User interface for course API Restful.
+User interface for the Course REST API.
 ---
+
