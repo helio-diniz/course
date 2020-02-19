@@ -10,6 +10,12 @@
   </div>
 
   <ul class="navbar-menu" [hidden]="!exibindoMenu">
-    <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/cursos">Curso</a></li>
+    <li class="navbar-user">{{ auth.jwtPayload?.name}}</li>
+    <!--
+    <li class="navbar-menuitem" *ngIf="auth.hasAuthority('ROLE_SEARCH_CATEGORY')"><a href="#">Categoria</a></li>
+    -->
+    <li class="navbar-menuitem" routerLinkActive="ativo" routerLink="/cursos"
+      *ngIf="auth.hasAuthority('ROLE_SEARCH_COURSE')"><a>Curso</a></li>
+    <li class="navbar-menuitem"><a (click)="logout()">Logout</a></li>
   </ul>
 </nav>

@@ -26,6 +26,15 @@ a {
   }
 }
 
+.col-id-header {
+  width: 100px;
+}
+
+.col-id {
+  width: 95px;
+  text-align: center;
+}
+
 .col-actions-header {
   width: 100px;
 }

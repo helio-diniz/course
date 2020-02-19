@@ -19,9 +19,10 @@
   <div class="ui-g" style="margin-top: 15px;">
     <div class="ui-g-12">
       <p-table [value]="courses" [responsive]="true" [paginator]="true" [rows]="5" [lazy]="true"
-        [totalRecords]="totalRecords" (onLazyLoad)="onChangePage($event)" #tabela>
+        [totalRecords]="totalOfRecords" (onLazyLoad)="onChangePage($event)" #tabela>
         <ng-template pTemplate="header">
           <tr>
+            <th class="col-id-header">Código</th>
             <th>Descrição</th>
             <th>Data de Início</th>
             <th>Data de Término</th>
@@ -33,23 +34,25 @@
 
         <ng-template pTemplate="body" let-course>
           <tr>
+            <td class="col-id">{{ course.id }}</td>
             <td>{{ course.description }}</td>
-            <td>{{ course.startDate }}</td>
-            <td>{{ course.finishDate }}</td>
+            <td>{{ course.startDate | date: 'dd/MM/y'}}</td>
+            <td>{{ course.finishDate | date: 'dd/MM/y'}}</td>
             <td>{{ course.amountOfStudents }}</td>
             <td>{{ course.category.description }}</td>
             <td class="col-actions">
+              <!-- fa fa-pencil-->
               <a pButton icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top"
-                [routerLink]="['/cursos', course.id]"></a>
+                style="width: 30px; margin-right: 5px;" [routerLink]="['/cursos', course.id]"></a>
               <button pButton icon="fa fa-trash" pTooltip="Excluir" tooltipPosition="top"
-                (click)="confirmRemoval(course)"></button>
+                (click)="confirmRemoval(course)" [disabled]='!auth.hasAuthority("ROLE_DELETE_COURSE")'></button>
             </td>
           </tr>
         </ng-template>
 
         <ng-template pTemplate="emptymessage">
           <tr>
-            <td colspan="6">
+            <td colspan="7">
               Nenhum curso cadastrado.
             </td>
           </tr>

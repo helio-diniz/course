@@ -8,11 +8,15 @@ import { GrowlModule } from 'primeng/growl';
 import { MessageService } from 'primeng/components/common/messageservice';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { NavbarComponent } from './navbar/navbar.component';
 import { ErrorHandlerService } from './error-handler.service';
 import { CourseService } from '../course/course.service';
+import { NotAuthorizedComponent } from './not-authorized-component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
+import { AuthService } from './../security/auth.service';
+import { from } from 'rxjs';
 
 
 registerLocaleData(localePt);
@@ -21,11 +25,13 @@ registerLocaleData(localePt);
   imports: [
     CommonModule,
     RouterModule,
-
     GrowlModule,
     ConfirmDialogModule,
   ],
-  declarations: [NavbarComponent, PaginaNaoEncontradaComponent],
+  declarations: [
+    NavbarComponent,
+    PaginaNaoEncontradaComponent,
+    NotAuthorizedComponent],
   exports: [
     NavbarComponent,
     PaginaNaoEncontradaComponent,
@@ -38,6 +44,8 @@ registerLocaleData(localePt);
     Title,
     ErrorHandlerService, ,
     CourseService,
+    AuthService,
+    JwtHelperService,
     { provide: LOCALE_ID, useValue: 'pt' }
   ]
 })

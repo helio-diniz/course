@@ -1,3 +1,5 @@
+import { AuthService } from './../security/auth.service';
+import { Category } from './../core/model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -13,7 +15,7 @@ export class CourseFilter {
 
 @Injectable()
 export class CourseService {
-
+  categoryURL = 'http://localhost:8080/categorias';
   courseURL = 'http://localhost:8080/cursos';
 
   constructor(private http: HttpClient) { }
@@ -54,7 +56,7 @@ export class CourseService {
   }
 
   save(course: Course): Promise<Course> {
-    return this.http.post<Course>(this.courseURL, course)
+    return this.http.post<Course>(`${this.courseURL}/novo`, course)
       .toPromise()
       .then();
   }
@@ -75,5 +77,11 @@ export class CourseService {
         const searchedCourse = response;
         return searchedCourse;
       });
+  }
+
+  findAllCategories(): Promise<Category[]> {
+    return this.http.get<Category[]>(`${this.categoryURL}/todas`)
+      .toPromise()
+      .then();
   }
 }

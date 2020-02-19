@@ -7,54 +7,47 @@
       <div class="ui-g-12 ui-fluid">
         <label for="description">Descrição</label>
         <input pInputText [(ngModel)]="course.description" type="text" name="description" id="description"
-          #description="ngModel" required minlength="3">
+          #description="ngModel" required>
 
-        <app-message [control]="description" error="required" text="Infomre a descrição do curso">
-        </app-message>
-
-        <app-message [control]="description" error="minlength"
-          text="Mínimo de {{ description.errors?.minlength?.requiredLength }} caracteres. Você digitou apenas {{ description.errors?.minlength?.actualLength }} caracter(es).">
+        <app-message [control]="description" error="required" text="Informe a descrição do curso">
         </app-message>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label for="startDate">Data de Início</label>
-        <input pInputText [(ngModel)]="course.startDate" type="text" name="startDate" id="startDate"
-          #startDate="ngModel" required minlength="3">
+        <p-calendar [(ngModel)]="course.startDate" name="startDate" id="startDate" dateFormat="dd/mm/yy"
+          [inline]="false" [readonlyInput]="false" [showIcon]="false" #startDate="ngModel">
+        </p-calendar>
 
-        <app-message [control]="startDate" error="required" text="Infomre a data de início do curso">
-        </app-message>
-
-        <app-message [control]="startDate" error="minlength"
-          text="Mínimo de {{ startDate.errors?.minlength?.requiredLength }} caracteres. Você digitou apenas {{ startDate.errors?.minlength?.actualLength }} caracter(es).">
-        </app-message>
+        <app-message [control]="startDate" error="required" text="Informe a data de início do curso"></app-message>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label for="finishDate">Data de Término</label>
-        <input pInputText [(ngModel)]="course.finishDate" type="text" name="finishDate" id="finishDate"
-          #finishDate="ngModel" required minlength="3">
+        <p-calendar [(ngModel)]="course.finishDate" name="finishDate" id="finishDate" dateFormat="dd/mm/yy"
+          [inline]="false" [readonlyInput]="false" [showIcon]="false" #finishDate="ngModel">
+        </p-calendar>
 
-        <app-message [control]="finishDate" error="required" text="Infomre a data de início do curso">
-        </app-message>
-
-        <app-message [control]="finishDate" error="minlength"
-          text="Mínimo de {{ finishDate.errors?.minlength?.requiredLength }} caracteres. Você digitou apenas {{ finishDate.errors?.minlength?.actualLength }} caracter(es).">
-        </app-message>
+        <app-message [control]="finishDate" error="required" text="Informe a data de término do curso"></app-message>
       </div>
 
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label for="amountOfStudents">Quantidade de alunos</label>
         <input pInputText [(ngModel)]="course.amountOfStudents" type="text" name="amountOfStudents"
-          id="amountOfStudents" #amountOfStudents="ngModel" required>
+          id="amountOfStudents" #amountOfStudents="ngModel" pKeyFilter="int">
+      </div>
 
-        <app-message [control]="amountOfStudents" error="required" text="Infomre a quantidade de alunos">
-        </app-message>
+      <div class="ui-g-12 ui-md-6 ui-fluid">
+        <label style="display: block" for="category">Categoria</label>
+        <p-dropdown [(ngModel)]="course.category.id" name="category" id="category" [options]="categories"
+          [autoWidth]="false" placeholder="Selecione" [filter]="true" required>
+        </p-dropdown>
       </div>
 
       <div class="ui-g-12">
-        <button pButton type="submit" label="Salvar" [disabled]="!courseForm.valid"></button>
-        <button pButton type="button" label="Novo" class="ui-button-info" (click)="reset(courseForm)"></button>
+        <button pButton type="submit" label="Salvar" [disabled]="!courseForm.valid" style="margin-right: 5px;"></button>
+        <button pButton type="button" label="Novo" class="ui-button-info" (click)="reset(courseForm)"
+          style="margin-right: 5px;"></button>
         <a routerLink="/cursos">Voltar para pesquisa</a>
       </div>
     </div>
