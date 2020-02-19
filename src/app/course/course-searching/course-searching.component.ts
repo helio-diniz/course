@@ -1,3 +1,4 @@
+import { AuthService } from './../../security/auth.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 
@@ -16,7 +17,7 @@ export class CourseSearchingComponent implements OnInit {
 
   totalOfRecords = 0;
   filter = new CourseFilter();
-  @ViewChild('tabela') grid;
+  @ViewChild('tabela', { static: false }) grid;
   courses = [];
 
   constructor(
@@ -24,7 +25,8 @@ export class CourseSearchingComponent implements OnInit {
     private errorHandlerService: ErrorHandlerService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private title: Title
+    private title: Title,
+    private auth: AuthService
   ) { }
 
   ngOnInit() {
@@ -56,7 +58,7 @@ export class CourseSearchingComponent implements OnInit {
   }
 
   excluir(course: any) {
-    this.courseService.delete(course.codigo)
+    this.courseService.delete(course.id)
       .then(() => {
         if (this.grid.first === 0) {
           this.findPage();
@@ -69,6 +71,7 @@ export class CourseSearchingComponent implements OnInit {
           severity: 'success',
           detail: 'Curso excluído com sucesso!'
         });
-      });
+      })
+      .catch(error => this.errorHandlerService.handle(error));
   }
 }
